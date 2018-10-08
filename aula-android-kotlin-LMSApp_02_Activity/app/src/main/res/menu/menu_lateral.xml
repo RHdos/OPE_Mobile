@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_dados" android:icon="@drawable/img_dados_pessoais" android:title="Meus Dados" />
+        <item android:id="@+id/nav_cadastrar_animais" android:icon="@drawable/img_cadastrar_animais" android:title="Cadastrar Animais" />
+        <item android:id="@+id/nav_buscar_animais" android:icon="@drawable/ic_buscar_black" android:title="Buscar Animais"/>
+        <item android:id="@+id/nav_buscar_empreendimentos" android:icon="@drawable/ic_buscar_black" android:title="Buscar Empreendimentos"/>
+        <item android:id="@+id/nav_sair" android:icon="@drawable/img_sair" android:title="Sair"/>
+
+    </group>
+</menu>
