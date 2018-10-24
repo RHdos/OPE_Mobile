@@ -42,19 +42,19 @@ class DadosPessoais : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
             }
 
         }
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        layoutMenuLateral4.closeDrawer(GravityCompat.START)
         return true
     }
 
     fun configuraMenuLateral(nome_usuario:String){
         val toolbar = toolbar
-        val layoutMenuLateral = layoutMenuLateral
+        val layoutMenuLateral = layoutMenuLateral4
         var toggle = ActionBarDrawerToggle(this,layoutMenuLateral,toolbar, R.string.drawer_open,R.string.drawer_close)
 
         layoutMenuLateral.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = menu_tela_inicial
+        val navigationView = menu_tela_inicial4
         var text_nome = navigationView.getHeaderView(0).findViewById(R.id.nome_menu_lateral) as TextView
         text_nome.text = "$nome_usuario"
         navigationView.setNavigationItemSelectedListener(this)

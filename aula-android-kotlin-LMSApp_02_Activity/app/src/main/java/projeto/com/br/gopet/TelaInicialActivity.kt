@@ -55,19 +55,19 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
             }
 
         }
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        layoutMenuLateral5.closeDrawer(GravityCompat.START)
         return true
     }
 
     fun configuraMenuLateral(nome_usuario:String){
         val toolbar = toolbar
-        val layoutMenuLateral = layoutMenuLateral
+        val layoutMenuLateral = layoutMenuLateral5
         var toggle = ActionBarDrawerToggle(this,layoutMenuLateral,toolbar, R.string.drawer_open,R.string.drawer_close)
 
         layoutMenuLateral.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = menu_tela_inicial
+        val navigationView = menu_tela_inicial5
         var text_nome = navigationView.getHeaderView(0).findViewById(R.id.nome_menu_lateral) as TextView
         text_nome.text = "$nome_usuario"
         navigationView.setNavigationItemSelectedListener(this)

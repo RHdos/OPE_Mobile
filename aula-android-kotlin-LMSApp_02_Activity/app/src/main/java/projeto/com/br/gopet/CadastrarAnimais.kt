@@ -11,8 +11,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_cadastrar_animais.*
 import kotlinx.android.synthetic.main.activity_dados_pessoais.*
 import kotlinx.android.synthetic.main.toolbar.*
+import android.R.attr.button
+import android.widget.Button
+import android.widget.EditText
+
 
 class CadastrarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,19 +48,19 @@ class CadastrarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         }
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        layoutMenuLateral3.closeDrawer(GravityCompat.START)
         return true
     }
 
     fun configuraMenuLateral(nome_usuario: String) {
         val toolbar = toolbar
-        val layoutMenuLateral = layoutMenuLateral
+        val layoutMenuLateral = layoutMenuLateral3
         var toggle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.drawer_open, R.string.drawer_close)
 
         layoutMenuLateral.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = menu_tela_inicial
+        val navigationView = menu_tela_inicial3
         var text_nome = navigationView.getHeaderView(0).findViewById(R.id.nome_menu_lateral) as TextView
         text_nome.text = "$nome_usuario"
         navigationView.setNavigationItemSelectedListener(this)
@@ -71,13 +76,29 @@ class CadastrarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.title = "Cadastrar Animais"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        // configuraMenuLateral(nome)
+        val botaoSalvar = findViewById<Button>(R.id.submit_animal)
+        botaoSalvar.setOnClickListener {
+            val animal = Animal()
+            animal.nome = input_nome_animal.text.toString()
+            animal.raca = input_raca_animal.text.toString()
+            animal.tamanho = input_tamanho_animal.text.toString()
+            animal.foto = urlFoto.text.toString()
+            taskAtualizar(animal)
+        }
 
         //val nome_menu = findViewById<TextView>(R.id.nome_menu_lateral)
         //nome_menu.text = "$nome"
     }
-
+    private fun taskAtualizar(animal: Animal) {
+        // Thread para salvar o animal
+        Thread {
+            AnimalService.save(animal)
+            runOnUiThread {
+                // após cadastrar, voltar para activity anterior
+                finish()
+            }
+        }.start()
+    }
     fun cliqueSair() {
         val returnIntent = Intent();
         returnIntent.putExtra("result","Saiu do GOPET!");
