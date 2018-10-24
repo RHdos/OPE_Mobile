@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">GOPET</string>
-    <string name="mensagem_login">Faça seu Login</string>
-    <string name="drawer_open">Menu Aberto</string>
-    <string name="drawer_close">Menu Fechado</string>
-</resources>
