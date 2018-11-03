@@ -12,12 +12,12 @@ import java.net.URL
 
 object AnimalService {
 
-    val host = "http://fesousa.pythonanywhere.com/"
+    val host = "http://gopet.pythonanywhere.com"
     //val host = "http://lbernardessilvaoutlookcom.pythonanywhere.com"
     val TAG = "WS_LMSApp"
     fun getAnimais (context: Context): List<Animal> {
         if (AndroidUtils.isInternetDisponivel(context)) {
-            val url = "$host/disciplinas"
+            val url = "$host/animais"
             val json = HttpHelper.get(url)
             //val json = URL(url).readText()
             //Log.d(TAG, json)
@@ -29,11 +29,11 @@ object AnimalService {
     }
 
     fun save(animal: Animal): Response {
-        val json = HttpHelper.post("$host/disciplinas", animal.toJson())
+        val json = HttpHelper.post("$host/animais", animal.toJson())
         return parserJson<Response>(json)
     }
     fun delete(animal: Animal): Response {
-        val url = "$host/disciplinas/${animal.id}"
+        val url = "$host/animais/${animal.id}"
         val json = HttpHelper.delete(url)
         return parserJson<Response>(json)
     }
