@@ -92,7 +92,11 @@ class CadastrarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelecte
     private fun taskAtualizar(animal: Animal) {
         // Thread para salvar o animal
         Thread {
-            AnimalService.save(animal)
+            if(AndroidUtils.isInternetDisponivel(context)) {
+                AnimalService.save(animal)
+            }else{
+                AnimalService.saveOffline(animal)
+            }
             runOnUiThread {
                 // após cadastrar, voltar para activity anterior
                 finish()

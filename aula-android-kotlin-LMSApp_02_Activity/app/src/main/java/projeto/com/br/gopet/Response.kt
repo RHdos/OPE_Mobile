@@ -1,4 +1,4 @@
-package fernandosousa.com.br.lmsapp
+package projeto.com.br.gopet
 
 data class Response (val status:String, val msg:String) {
     // verificar se o chamada foi executada com sucesso

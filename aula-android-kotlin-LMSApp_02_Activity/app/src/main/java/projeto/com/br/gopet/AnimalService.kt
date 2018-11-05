@@ -6,8 +6,9 @@ import br.com.fernandosousa.lmsapp.HttpHelper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import fernandosousa.com.br.lmsapp.AndroidUtils
-import fernandosousa.com.br.lmsapp.Response
+import projeto.com.br.gopet.AndroidUtils
+
+import projeto.com.br.gopet.Response
 import java.net.URL
 
 object AnimalService {
@@ -16,17 +17,19 @@ object AnimalService {
     //val host = "http://lbernardessilvaoutlookcom.pythonanywhere.com"
     val TAG = "WS_GOPET"
     fun getAnimais (context: Context): List<Animal> {
-        var animais = ArrayList<Animal>()
 
+        var animais = ArrayList<Animal>()
         if(AndroidUtils.isInternetDisponivel(context)) {
             val url = "$host/animais"
             val json = HttpHelper.get(url)
+
             animais = parserJson(json)
 
             // salvar offline
             for(a in animais){
                 saveOffline(a)
             }
+
 
             return animais
         } else {
@@ -42,6 +45,7 @@ object AnimalService {
     }
 
     fun saveOffline(animal: Animal): Boolean{
+
         val dao = DatabaseManager.getAnimalDAO()
 
         if (! existeAnimal(animal)){

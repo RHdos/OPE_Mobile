@@ -26,13 +26,13 @@ class BuscarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
     private var REQUEST_CADASTRO = 1
     private var REQUEST_REMOVE= 2
 
-    fun enviaNotificacao(animal: Animal) {
+    /*fun enviaNotificacao(animal: Animal) {
         // Intent para abrir tela quando clicar na notificação
         val intent = Intent(this, TelaInicialActivity::class.java)
        // intent.putExtra("animal",animal)
         NotificationUtil.create(1, intent,"Buscar Animais","Existem alguns animais " +
                 "cadastrados para adoação ${animal.nome}")
-    }
+    }*/
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
            when (item.itemId) {
                R.id.nav_dados -> {
@@ -106,7 +106,7 @@ class BuscarAnimais : DebugActivity(), NavigationView.OnNavigationItemSelectedLi
             this.animais = AnimalService.getAnimais(context)
             runOnUiThread {
                 recyclerAnimais?.adapter = AnimalAdapter(animais) { onClickAnimal(it) }
-                enviaNotificacao(this.animais.get(0))
+                //enviaNotificacao(this.animais.get(0))
             }
 
         }.start()

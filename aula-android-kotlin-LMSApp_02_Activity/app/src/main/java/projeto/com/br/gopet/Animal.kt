@@ -2,12 +2,14 @@ package projeto.com.br.gopet
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.GsonBuilder
+import java.io.Serializable
 
 @Entity(tableName = "animal")
-class Animal {
+class Animal :Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id:Long = 0
 
     var nome = ""

@@ -1,4 +1,4 @@
-package fernandosousa.com.br.lmsapp
+package projeto.com.br.gopet
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -10,6 +10,7 @@ object AndroidUtils {
         val conexao = context.getSystemService(Context.CONNECTIVITY_SERVICE)  as ConnectivityManager
 
         val redes = conexao.allNetworks
-        return redes.map{conexao.getNetworkInfo(it)}.any{it.state == NetworkInfo.State.CONNECTED}
+        return redes.map{conexao.getNetworkInfo(it)}
+                .any{it.detailedState == NetworkInfo.DetailedState.CONNECTED}
     }
 }
