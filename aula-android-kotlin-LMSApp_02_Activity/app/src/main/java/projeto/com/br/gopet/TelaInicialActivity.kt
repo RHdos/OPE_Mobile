@@ -6,14 +6,49 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
+import projeto.com.br.gopet.R.id.layoutMenuLateral5
+import projeto.com.br.gopet.R.id.recyclerAnimais
+
+//import projeto.com.br.gopet.R.id.toolbar
 
 class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    var recyclerAnimais: RecyclerView? = null
+    private var animais = listOf<Animal>()
+    //private val context: Context get() = this
+    fun enviaNotificacao() {
+        // Intent para abrir tela quando clicar na notificação
+        val intent = Intent(this, BuscarAnimais::class.java)
+        // intent.putExtra("animal",animal)
+        NotificationUtil.create(1, intent,"Buscar Animais","Adote um de nossos animais")
+    }
+    override fun onResume() {
+        super.onResume()
+        // task para recuperar as animais
+        taskAnimais()
+    }
+    fun taskAnimais() {
+        Thread {
+            this.animais = AnimalService.getAnimais(context)
+            runOnUiThread {
+                //recyclerAnimais?.adapter = AnimalAdapter(animais) { onClickAnimal(it) }
+                enviaNotificacao()
+            }
+
+        }.start()
+    }
+    /*fun onClickAnimal(animal: Animal) {
+        Toast.makeText(context, "Clicou animal ${animal.nome}", Toast.LENGTH_SHORT)
+                .show()
+    }*/
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
@@ -59,6 +94,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         return true
     }
 
+
     fun configuraMenuLateral(nome_usuario:String){
         val toolbar = toolbar
         val layoutMenuLateral = layoutMenuLateral5
@@ -87,7 +123,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         val nome = args.getString("nome")
 
         // recuperar parâmetro simplificado
-        val numero = intent.getIntExtra("nome",0)
+//        val numero = intent.getIntExtra("nome",0)
 
         //Toast.makeText(context, "Parâmetro: $nome", Toast.LENGTH_LONG).show()
         //Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
@@ -109,6 +145,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         //val nome_menu = findViewById<TextView>(R.id.nome_menu_lateral)
         //nome_menu.text = "$nome"
     }
+
 
     fun cliqueSair() {
         val returnIntent = Intent();

@@ -1,4 +1,4 @@
-package fernandosousa.com.br.lmsapp
+package projeto.com.br.gopet
 
 import android.content.Context
 import android.content.SharedPreferences

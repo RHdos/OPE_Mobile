@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "178273241285",
+    "firebase_url": "https://gopet-29c0c.firebaseio.com",
+    "project_id": "gopet-29c0c",
+    "storage_bucket": "gopet-29c0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178273241285:android:31fd44b5cd3427c8",
+        "android_client_info": {
+          "package_name": "projeto.com.br.gopet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178273241285-r63sd1j25bhprkgin6ddkm8u85p4evv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABxbDMrv2pfK8e_Y0QT_2ewJh_2YUrYMI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

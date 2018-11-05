@@ -14,17 +14,25 @@ object AnimalService {
 
     val host = "http://gopet.pythonanywhere.com"
     //val host = "http://lbernardessilvaoutlookcom.pythonanywhere.com"
-    val TAG = "WS_LMSApp"
+    val TAG = "WS_GOPET"
     fun getAnimais (context: Context): List<Animal> {
-        if (AndroidUtils.isInternetDisponivel(context)) {
+        var animais = ArrayList<Animal>()
+
+        if(AndroidUtils.isInternetDisponivel(context)) {
             val url = "$host/animais"
             val json = HttpHelper.get(url)
-            //val json = URL(url).readText()
-            //Log.d(TAG, json)
-            return parserJson<List<Animal>>(json)
-        } else {
+            animais = parserJson(json)
 
-            return ArrayList<Animal>()
+            // salvar offline
+            for(a in animais){
+                saveOffline(a)
+            }
+
+            return animais
+        } else {
+            val dao = DatabaseManager.getAnimalDAO()
+            val animais = dao.findAll()
+            return animais
         }
     }
 
@@ -32,10 +40,30 @@ object AnimalService {
         val json = HttpHelper.post("$host/animais", animal.toJson())
         return parserJson<Response>(json)
     }
+
+    fun saveOffline(animal: Animal): Boolean{
+        val dao = DatabaseManager.getAnimalDAO()
+
+        if (! existeAnimal(animal)){
+            dao.insert(animal)
+        }
+        return true
+    }
+    fun existeAnimal(animal: Animal) : Boolean{
+        val dao = DatabaseManager.getAnimalDAO()
+        return dao.getById(animal.id) != null
+    }
+
     fun delete(animal: Animal): Response {
-        val url = "$host/animais/${animal.id}"
-        val json = HttpHelper.delete(url)
-        return parserJson<Response>(json)
+        if (AndroidUtils.isInternetDisponivel(LMSApplication.getInstance().applicationContext)){
+            val url = "$host/animais/${animal.id}"
+            val json = HttpHelper.delete(url)
+            return parserJson(json)
+        }else{
+            val dao = DatabaseManager.getAnimalDAO()
+            dao.delete(animal)
+            return Response(status = "OK", msg = "Dados salvos localmente")
+        }
     }
 
     inline fun <reified T> parserJson(json: String): T {
